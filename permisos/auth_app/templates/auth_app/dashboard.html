@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Welcome, {{ user.username }}</h1>
+<p class="text-muted text-center">Manage your cars below</p>
+
+{% if cars %}
+    <div class="table-responsive mt-4">
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Model</th>
+                    <th>Year</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for car in cars %}
+                <tr>
+                    <td>{{ car.model }}</td>
+                    <td>{{ car.year }}</td>
+                    <td>
+                        <a href="{% url 'edit_car' car.id %}" class="btn btn-primary btn-sm">Edit</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <div class="alert alert-info text-center" role="alert">
+        You don't have any cars yet. Start by adding one!
+    </div>
+{% endif %}
+{% endblock %}
